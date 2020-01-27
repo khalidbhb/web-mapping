@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TopoTech-Cartography</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="../../vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../../css/stylish-portfolio.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+    <!-- Navigation -->
+    <a class="menu-toggle rounded" href="#">
+        <i class="fas fa-bars"></i>
+    </a>
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a class="js-scroll-trigger" href="#page-top">Menu</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" href="../../../index.html#home">Home</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" href="../../../index.html#team">Team</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" href="../../../index.html#services">Services</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" href="../../../index.html#portfolio">Our products</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" href="../../../index.html#contact">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header class="masthead d-flex">
+        <div class="container text-center my-auto">
+            <h1 class="mb-2" style="color: white; background-color: rgba(0,0,0,0.5);">
+                Cartography</h1>
+            <h3 class="mb-5" style="color: black; background-color: rgba(255,255,255,.5); ">
+                <em>Moroccan maps</em>
+            </h3>
+            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#map_section">Find Out</a>
+        </div>
+        <div class="overlay"></div>
+    </header>
+
+    <!-- MAP -->
+
+    <section class="content-section bg-primary text-white text-center" id="map_section">
+        <div class="container">
+            <div class="content-section-heading">
+                <h3 class="text-secondary mb-0">OUR MAPS</h3>
+                <h2 class="mb-5">MOROCCO</h2>
+                <h3 class=" mb-5" style="color: white;">Click on the region to see the available maps</h3>
+
+            </div>
+
+            <!-- MAP SECTION -->
+
+
+
+            <!-- define map size -->
+            <style>
+                #map {
+                    height: 500px;
+                }
+            </style>
+
+            <div id='map'></div>
+            <!-- Load scripts / CSS -->
+            <script src="../Files/js/leaflet.js"></script>
+            <link rel="stylesheet" href="../Files/css/leaflet.css" />
+            <script src="../../js/leaflet.responsive.popup.js"></script>
+            <link rel="stylesheet" href="../../css/leaflet.responsive.popup.css">
+            <script type="text/javascript" src="../Files/data/Maroc.js"></script>
+            <script type="text/javascript">
+                // Define map and geojson file
+                var map = L.map('map')
+                var geojson = L.geoJson(REGIONS, {
+                    style: style,
+                    onEachFeature: OnEachFeature,
+                }).addTo(map);
+
+                // Used functions
+
+                //Highlights the feature
+                function highlightFeature(e) {
+                    var layer = e.target;
+                    layer.setStyle({
+                        weight: 1,
+                        color: 'black',
+                        fillColor: '#cf000f',
+                        fillOpacity: 0.7
+                    });
+                    if (!L.Browser.ie && !L.Browser.opera) {
+                        layer.bringToFront();
+                    }
+                    info.update(layer.feature.properties);
+
+                }
+
+                //Reset the defaut highlight
+                function resetHighlight(e) {
+                    geojson.resetStyle(e.target);
+                    info.update();
+
+                }
+
+
+                //To open the html file of the selected region
+                function view_region(e) {
+                    var layer = e.target
+                    if (layer.feature.properties.OBJECTID == 1) {
+                        window.location.href = "Tanger-Tetouan-AlHoceima/index.html";
+                    } else if (layer.feature.properties.OBJECTID == 2) {
+                        window.location.href = "oriental/index.html";
+                    } else if (layer.feature.properties.OBJECTID == 3) {
+                        window.location.href = "Fes-Meknes/index.html";
+
+                    } else if (layer.feature.properties.OBJECTID == 4) {
+                        window.location.href = "Rabat-Sale-Kenitra/index.html";
+
+                    } else if (layer.feature.properties.OBJECTID == 5) {
+                        window.location.href = "BeniMellal-Khenifra/index.html";
+
+                    } else if (layer.feature.properties.OBJECTID == 6) {
+                        window.location.href = "Marrakesh-Safi/index.html";
+
+                    } else if (layer.feature.properties.OBJECTID == 7) {
+                        window.location.href = "Draa-Tafilalet/index.html";
+
+                    } else if (layer.feature.properties.OBJECTID == 8) {
+                        window.location.href = "Souss-Massa/index.html";
+
+                    } else if (layer.feature.properties.OBJECTID == 9) {
+                        window.location.href = "Guelmim-OuedNoun/index.html";
+
+                    } else if (layer.feature.properties.OBJECTID == 10) {
+                        window.location.href = "Laayoune-SakiaElHamra/index.html";
+
+                    } else if (layer.feature.properties.OBJECTID == 11) {
+                        window.location.href = "Dakhla-OuedEd-Dahab/index.html";
+
+                    } else if (layer.feature.properties.OBJECTID == 14) {
+                        window.location.href = "Casablanca-Settat/index.html";
+                    } else {
+                        map.fitBounds(layer.fitBounds());
+                    }
+                }
+
+
+
+                // define what to do depending on the mouse event
+                function OnEachFeature(feature, layer) {
+                    layer.on({
+                        mouseover: highlightFeature,
+                        mouseout: resetHighlight,
+                        click: view_region
+                    });
+                }
+
+                //show info on each feature hovered by the mouse
+                var info = L.control();
+                info.onAdd = function(map) {
+                    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+                    this.update();
+                    return this._div;
+                };
+
+                // method that we will use to update the control based on feature properties passed
+                info.update = function(props) {
+                    this._div.innerHTML = (props ?
+                        '<b>' + props.Nom_Region :
+                        'Hover over a state');
+                };
+                info.addTo(map);
+
+
+                //Basemap
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+
+                //Define style
+                function style(feature) {
+                    console.log(feature)
+                    return {
+                        weight: 2,
+                        opacity: 1,
+                        color: 'black',
+                        dashArray: '3',
+                        fillOpacity: 0.1,
+
+                    };
+                }
+
+
+
+                // Fit map to Morocco
+                map.fitBounds(geojson.getBounds());
+
+                // Markers (This partie was deleted from the code after being able to redirect the page after clicking on the region area)
+
+                // var marker = L.marker(point).addTo(map);
+                // var MyIcon = L.icon({
+                // iconUrl: 'https://image.flaticon.com/icons/svg/458/458357.svg',
+
+
+                //   iconSize:     [38, 95], // size of the icon
+                //   shadowSize:   [50, 64], // size of the shadow
+                //   iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+                //   shadowAnchor: [4, 62],  // the same for the shadow
+                //   popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                // })
+                // var R1 = L.marker([33.1533, -2.3164], {icon: MyIcon}).addTo(map);
+                // R1.bindPopup('<div><p style="text-align:center;">Oriental</p><p style="text-align:center;">For more informations about this region click <a href="Region1/index.html">Here</a>!</p>')
+                // var R2 = L.marker([33.24375, -4.70043], {icon: MyIcon}).addTo(map);
+                // R2.bindPopup('<div><p style="text-align:center;">Fès-Meknès</p><p style="text-align:center;">For more informations about this region click <a href="https://unsplash.com/">Here</a>!</p>')
+                // var R3 = L.marker([34.93776, -5.35961], {icon: MyIcon}).addTo(map);
+                // R3.bindPopup('<div><p style="text-align:center;">Tanger-Tetouan-Al Hoceima</p><p style="text-align:center;">For more informations about this region click <a href="https://unsplash.com/">Here</a>!</p>')
+                // var R4 = L.marker([33.5993, -6.40331], {icon: MyIcon}).addTo(map);
+                // R4.bindPopup('<div><p style="text-align:center;">Rabat-Salé-Kénitra</p><p style="text-align:center;">For more informations about this region click <a href="https://unsplash.com/">Here</a>!</p>')
+                // var R5 = L.marker([32.7145, -7.60619], {icon: MyIcon}).addTo(map);
+                // R5.bindPopup('<div><p style="text-align:center;">Casablanca-Settat</p><p style="text-align:center;">For more informations about this region click <a href="https://unsplash.com/">Here</a>!</p>')
+                // var R6 = L.marker([31.60165, -6.2495], {icon: MyIcon}).addTo(map);
+                // R6.bindPopup('<div><p style="text-align:center;">Béni Mellal-Khénifra</p><p style="text-align:center;">For more informations about this region click <a href="https://unsplash.com/">Here</a>!</p>')
+                // var R7 = L.marker([30.84801, -8.45775], {icon: MyIcon}).addTo(map);
+                // R7.bindPopup('<div><p style="text-align:center;">Marrakesh-Safi</p><p style="text-align:center;">For more informations about this region click <a href="https://unsplash.com/">Here</a>!</p>')
+                // var R8 = L.marker([30.51397, -5.22777], {icon: MyIcon}).addTo(map);
+                // R8.bindPopup('<div><p style="text-align:center;">Drâa-Tafilalet</p><p style="text-align:center;">For more informations about this region click <a href="https://unsplash.com/">Here</a>!</p>')
+                // var R9 = L.marker([28.99171, -8.47159], {icon: MyIcon}).addTo(map);
+                // R9.bindPopup('<div><p style="text-align:center;">Souss-Massa</p><p style="text-align:center;">For more informations about this region click <a href="https://unsplash.com/">Here</a>!</p>')
+                // var R10 = L.marker([27.69635, -10.10856], {icon: MyIcon}).addTo(map);
+                // R10.bindPopup('<div><p style="text-align:center;">Guelmim-Oued Noun</p><p style="text-align:center;">For more informations about this region click <a href="https://unsplash.com/">Here</a>!</p>')
+                // var R11 = L.marker([26.15941, -11.90357], {icon: MyIcon}).addTo(map);
+                // R11.bindPopup('<div><p style="text-align:center;">Laâyoune-Sakia El Hamra</p><p style="text-align:center;">For more informations about this region click <a href="https://unsplash.com/">Here</a>!</p>')
+                // var R12 = L.marker([22.20643, -14.60196], {icon: MyIcon}).addTo(map);
+                // R12.bindPopup('<div><p style="text-align:center;">Dakhla-Oued Ed-Dahab</p><p style="text-align:center;">For more informations about this region click <a href="https://unsplash.com/">Here</a>!</p>')
+            </script>
+
+        </div>
+    </section>
+
+
+    <!-- Call to Action -->
+    <section class="content-section bg-primary text-white">
+        <div class="container text-center">
+            <h2 class="mb-4">Contact us by:</h2>
+            <a href="../../../../index.html#contact" class="btn btn-xl btn-light mr-4">Sending an Email!</a>
+            <a href="../../../../index.html#team" class="btn btn-xl btn-dark">Contacting the Team!</a>
+        </div>
+    </section>
+
+    <!-- Map -->
+    <section id="contact" class="map">
+        <section id="contact" class="map">
+            <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3308.690337142041!2d-6.871759685201234!3d33.97479788062698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda76cdaf0a55555%3A0xfecab24c119e896e!2sIAV%20Hassan%20II!5e0!3m2!1sen!2sma!4v1577962697000!5m2!1sen!2sma"></iframe>
+            <br />
+        </section>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+        <div class="container">
+            <ul class="list-inline mb-5">
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="https://www.facebook.com/IAV.HASSANII.IAV/">
+                        <i class="icon-social-facebook"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="https://twitter.com/Iav_Hassan_II?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
+                        <i class="icon-social-twitter"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white" href="https://www.linkedin.com/company/school-of-geomatic-sciences-iav-hassan-ii-rabat-morocco/about/">
+                        <i class="icon-social-linkedin"></i>
+                    </a>
+                </li>
+            </ul>
+            <p class="text-muted small mb-0">Copyright &copy; TOPOTECH 2020</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="../../js/stylish-portfolio.min.js"></script>
+    <script src="../../js/My_funct.js"></script>
+
+
+</body>
+
+</html>

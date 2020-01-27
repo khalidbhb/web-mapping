@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Marrakech - Safi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Template files -->
+    <link href="../../../Files/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../../../Files/css/style.css" rel="stylesheet">
+    <link href="../../../Files/color/default.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../../../Files/img/favicon.ico">
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="../../../Files/css/leaflet.css" />
+    <script src="../../../Files/js/leaflet.js"></script>
+    <!-- Contextmenu -->
+    <script src="../../../Files/js/leaflet.contextmenu.js"></script>
+    <link rel="stylesheet" href="../../../Files/css/leaflet.contextmenu.css" />
+    <!-- Data used for the map -->
+    <script type="text/javascript" src="../../../Files/data/7.js"></script>
+
+
+    <!-- Map size -->
+    <style>
+        #map {
+            height: 600px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <!-- navbar -->
+    <div class="navbar-wrapper">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Responsive navbar -->
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </a>
+                    <h1 class="brand"><a href="#">TOPOTECH</a></h1>
+                    <!-- navigation -->
+                    <nav class="pull-right nav-collapse collapse">
+                        <ul id="menu-main" class="nav">
+                            <li><a title="team" href="../../../../../index.html#home">Home</a></li>
+                            <li><a title="services" href="../../../../../index.html#team">Team</a></li>
+                            <li><a title="works" href="../../../../../index.html#services">Services</a></li>
+                            <li><a title="blog" href="../../../../../index.html#portfolio">Our products</a></li>
+                            <li><a title="contact" href="../../../../../index.html#contact">Contact</a></li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header slider -->
+    <div id="header-wrapper" class="header-slider">
+        <header class="clearfix">
+            <div class="logo">
+                <img src="../../../Files/img/logo-image.png" alt="" />
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <div id="main-flexslider" class="flexslider">
+                            <ul class="slides">
+                                <li>
+                                    <p class="home-slide-content" style="background-color: rgb(44, 44, 44,0.7);">
+                                        <strong>Education</strong>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="home-slide-content" style="background-color: rgba(200, 200, 200, 0.7); color: black;">
+                                        <strong>Cartography</strong> Department
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- end slider -->
+                    </div>
+                </div>
+            </div>
+            <a href="#txt" class="btn btn-default btn-large btn-rounded">SEE MAP</a>
+        </header>
+    </div>
+
+
+    <div id="txt">
+        <pre style="text-align: center;"><strong> <font size='+3'>THE MAP</font></strong></pre>
+    </div>
+    <div id='map'></div>
+
+    <script type="text/javascript">
+        //Define the map and a context menu shown when clicking on the right button
+
+        var map = L.map('map', {
+
+            zoom: 15,
+            contextmenu: true,
+            contextmenuWidth: 140,
+            contextmenuItems: [{
+                text: 'Show coordinates',
+                callback: showCoordinates
+            }, {
+                text: 'Center map here',
+                callback: centerMap
+
+            }, '-', {
+                text: 'Zoom in',
+                icon: '../../../Files/img/zoom-in.png',
+                callback: zoomIn
+            }, {
+                text: 'Zoom out',
+                icon: '../../../Files/img/zoom-out.png',
+                callback: zoomOut
+            }]
+        });
+
+        // Add the basemap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+
+        // Define the colors
+        function getColor(d) {
+            return d == 0.451 | d == "0.451" ? '#bdc9e1' :
+                d < 0.56 | d == "0.452-0.559" ? '#74a9cf' :
+                d < 0.639 | d == "0.560-0.639" ? '#2b8cbe' :
+                d < 0.702 | d == "0.640-0.701" ? '#045a8d' :
+                '#FFEDA0';
+        }
+
+
+        // Define the style
+        function style(feature) {
+            return {
+                weight: 2,
+                opacity: 1,
+                color: 'white',
+                dashArray: '3',
+                fillOpacity: 0.4,
+                fillColor: getColor(feature.properties.Education_)
+            };
+        }
+
+        // Define the data file (GeoJson)
+        var geojson = L.geoJson(region, {
+            style: style,
+        }).addTo(map);
+
+        // Set the view on the map automatically
+        // It's better than using the setview method
+        map.fitBounds(geojson.getBounds());
+
+
+        //Define the Legend
+
+        var legend = L.control({
+            position: 'topleft'
+        });
+        legend.onAdd = function(map) {
+
+            var div = L.DomUtil.create('div', 'info legend');
+            labels = ['<strong>Indice de Gini de l’éducation en 2014</strong>'],
+                categories = ["0.451", "0.452-0.559", "0.560-0.639", "0.640-0.701"];
+
+            for (var i = 0; i < categories.length; i++) {
+
+                div.innerHTML +=
+                    labels.push(
+                        '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
+                        (categories[i] ? categories[i] : '+'));
+
+            }
+            div.innerHTML = labels.join('<br>');
+            return div;
+        };
+        legend.addTo(map);
+
+        // Make the map interactive
+
+        function highlightFeature(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 1,
+                color: 'black',
+                fillColor: 'blue',
+                fillOpacity: 0.2
+            });
+
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+            info.update(layer.feature.properties);
+        }
+
+        function resetHighlight(e) {
+            geojson.resetStyle(e.target);
+            info.update();
+        }
+
+        function zoomToFeature(e) {
+            map.fitBounds(e.target.getBounds());
+        }
+
+        function onEachFeature(feature, region) {
+            region.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+                click: zoomToFeature
+            });
+        }
+
+        geojson = L.geoJson(region, {
+            style: style,
+            onEachFeature: onEachFeature
+        }).addTo(map);
+        //show info on each feature hovered by the mouse
+        var info = L.control();
+        info.onAdd = function(map) {
+            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this.update();
+            return this._div;
+        };
+
+        // method that we will use to update the control based on feature properties passed
+        info.update = function(props) {
+            this._div.innerHTML = '<h4>Indice de Gini de l’éducation en 2014</h4>' + (props ?
+                '<b>' + props.Nom_Provin + '</b><br />' + props.Education_ :
+                'Hover over a state');
+        };
+        info.addTo(map);
+
+        //The context menu
+        // used functions
+        function showCoordinates(e) {
+            alert(e.latlng);
+        }
+
+        function centerMap(e) {
+            map.panTo(e.latlng);
+        }
+
+        function zoomIn(e) {
+            map.zoomIn();
+        }
+
+        function zoomOut(e) {
+            map.zoomOut();
+        }
+    </script>
+
+    <!-- Searching on Wikipedia or Google -->
+    <pre style="text-align:center;"> 
+        
+
+            <strong> <font size='+2'>Know more about this by searching on: </font> </strong> 
+        </pre>
+
+    <!-- Wikipedia -->
+    <p style="text-align:center; color: white; background-color:rgba(77, 162, 247, 0.7);"> <strong> Wikipedia </strong> </p>
+    <form method="get" action="https://en.wikipedia.org/w/index.php">
+        <input type="text" name="search">
+        <pre style="text-align:center;"> <button class="btn-primary" type="submit" style="text-align: center;">Search on Wikipedia</button> </pre>
+    </form>
+
+    <!-- Google -->
+    <p style="text-align:center; color: white; background-color:rgba(15,102, 188, 0.7);"> <strong> Google</strong> </p>
+    <form action="https://www.google.com/search" class="searchform" method="get" name="searchform" target="_blank">
+        <input name="sitesearch" type="hidden" value="">
+        <input autocomplete="on" class="form-control search" name="q" placeholder="" required="required" type="text">
+
+        <pre style="text-align:center;"><button class="btn-primary" type="submit" style="text-align:center;">Search on Google</button></pre>
+    </form>
+
+
+
+    <!-- footer		 -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="span6 offset3">
+                    <ul class="social-networks">
+                        <li><a href="https://www.linkedin.com/company/school-of-geomatic-sciences-iav-hassan-ii-rabat-morocco/about/"><i class="icon-circled icon-bgdark icon-linkedin icon-2x"></i></a></li>
+                        <li><a href="https://www.facebook.com/IAV.HASSANII.IAV/"><i class="icon-circled icon-bgdark icon-twitter icon-2x"></i></a></li>
+                        <li><a href="https://www.facebook.com/IAV.HASSANII.IAV/"><i class="icon-circled icon-bgdark icon-facebook icon-2x"></i></a></li>
+                    </ul>
+                    <p class="copyright">
+                        &copy; TopoTech. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- ./container -->
+    </footer>
+
+    <!-- Scrollup button -->
+    <a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
+    <!-- Scripts -->
+    <script src="../../../Files/js/jquery.js"></script>
+    <script src="../../../Files/js/jquery.scrollTo.js"></script>
+    <script src="../../../Files/js/jquery.nav.js"></script>
+    <script src="../../../Files/js/jquery.localScroll.js"></script>
+    <script src="../../../Files/js/bootstrap.js"></script>
+    <script src="../../../Files/js/jquery.prettyPhoto.js"></script>
+    <script src="../../../Files/js/isotope.js"></script>
+    <script src="../../../Files/js/jquery.flexslider.js"></script>
+    <script src="../../../Files/js/inview.js"></script>
+    <script src="../../../Files/js/animate.js"></script>
+    <script src="../../../Files/js/custom.js"></script>
+</body>
+
+</html>

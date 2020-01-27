@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TopoTech-Cartography</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="../../vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../../css/stylish-portfolio.min.css" rel="stylesheet">
+
+    <!----------Used scripts in the map-->
+    <script src="../Files/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="../Files/js/leaflet_older.js"></script>
+    <link rel="stylesheet" href="../Files/css/leaflet.css" />
+    <script src="../Files/js/leaflet-dvf.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../Files/data/Mar_charts.js"></script>
+    <script src="../Files/js/main_chom_pov.js" type="text/javascript"></script>
+
+</head>
+
+
+<body id="page-top">
+
+    <!-- Navigation -->
+    <a class="menu-toggle rounded" href="#">
+        <i class="fas fa-bars"></i>
+    </a>
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a class="js-scroll-trigger" href="#page-top">Menu</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" href="../../../index.html#home">Home</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" href="../../../index.html#team">Team</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" href="../../../index.html#services">Services</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" href="../../../index.html#portfolio">Our products</a>
+            </li>
+            <li class="sidebar-nav-item">
+                <a class="js-scroll-trigger" href="../../../index.html#contact">Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header class="masthead d-flex">
+        <div class="container text-center my-auto">
+            <h1 class="mb-2" style="color: white; background-color: rgba(0,0,0,0.5);">
+                Cartography</h1>
+            <h3 class="mb-5" style="color: black; background-color: rgba(255,255,255,.5); ">
+                <em>The rate of Poverty and Unemployment</em>
+            </h3>
+            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#map">See map</a>
+        </div>
+        <div class="overlay"></div>
+    </header>
+
+    <!-- MAP -->
+    <div id="title">
+        <pre style="text-align: center; color: white; background-color: rgba(0,0,0,0.8);"><strong> <font size='+3'> A map representing the rate of Poverty and Unemployment</font></strong></pre>
+    </div>
+
+    <section class="themes">
+        <div id="map" style="height: 600px;"></div>
+    </section>
+    <!-- Legend -->
+    <div>
+        <!-- Modify css to obtain the box red and the box yellow classes -->
+        <div class="box red"></div>
+        <p>Taux de chômage </p>
+        <div class="box yellow"></div>
+        <p>Taux de Pauvreté </p>
+    </div>
+
+    <!-- Call to Action -->
+    <section class="content-section bg-primary text-white">
+        <div class="container text-center">
+            <h2 class="mb-4">Contact us by:</h2>
+            <a href="../../index.html#contact" class="btn btn-xl btn-light mr-4">Sending an Email!</a>
+            <a href="../../index.html#team" class="btn btn-xl btn-dark">Contacting the Team!</a>
+        </div>
+    </section>
+
+    <!-- contact map -->
+    <section id="contact" class="map">
+        <section id="contact" class="map">
+            <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3308.690337142041!2d-6.871759685201234!3d33.97479788062698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda76cdaf0a55555%3A0xfecab24c119e896e!2sIAV%20Hassan%20II!5e0!3m2!1sen!2sma!4v1577962697000!5m2!1sen!2sma"></iframe>
+            <br />
+        </section>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+        <div class="container">
+            <ul class="list-inline mb-5">
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="https://www.facebook.com/IAV.HASSANII.IAV/">
+                        <i class="icon-social-facebook"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white mr-3" href="https://twitter.com/Iav_Hassan_II?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
+                        <i class="icon-social-twitter"></i>
+                    </a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="social-link rounded-circle text-white" href="https://www.linkedin.com/company/school-of-geomatic-sciences-iav-hassan-ii-rabat-morocco/about/">
+                        <i class="icon-social-linkedin"></i>
+                    </a>
+                </li>
+            </ul>
+            <p class="text-muted small mb-0">Copyright &copy; TOPOTECH 2020</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="../../js/stylish-portfolio.min.js"></script>
+
+
+</body>
+
+</html>
